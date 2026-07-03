@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="mintGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="512" height="512" rx="128" fill="#121212" />
+  
+  <!-- Outer Timer Ring -->
+  <circle cx="256" cy="256" r="180" fill="none" stroke="url(#mintGrad)" stroke-width="24" stroke-linecap="round" stroke-dasharray="800 300" />
+  
+  <!-- Inner Clock Hands / Stretching abstraction -->
+  <path d="M256 120 V256 L356 310" fill="none" stroke="#ffffff" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Stylized Figure stretching -->
+  <circle cx="200" cy="220" r="28" fill="url(#mintGrad)" />
+  <path d="M150 360 C180 320 200 290 220 280 C240 270 270 290 300 330" fill="none" stroke="url(#mintGrad)" stroke-width="24" stroke-linecap="round" />
+</svg>

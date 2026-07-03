@@ -1,0 +1,27 @@
+{
+  "name": "Stretching Timer",
+  "short_name": "StretchTimer",
+  "description": "유튜브와 타이머가 함께하는 스마트 스트레칭 어플리케이션",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#10b981",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    }
+  ],
+  "share_target": {
+    "action": "index.html",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

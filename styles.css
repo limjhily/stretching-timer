@@ -1,0 +1,622 @@
+:root {
+  --bg-primary: #121214;
+  --bg-secondary: #1a1a1e;
+  --bg-tertiary: #26262b;
+  --accent: #10b981;
+  --accent-hover: #059669;
+  --accent-glow: rgba(16, 185, 129, 0.15);
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #52525b;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --border-color: #27272a;
+  
+  --font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --transition-speed: 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+  height: -webkit-fill-available;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  height: -webkit-fill-available;
+}
+
+#app {
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  height: -webkit-fill-available;
+  min-height: 100%;
+  position: relative;
+  background-color: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+/* 뷰(화면) 전환 시스템 */
+.view {
+  display: none;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.view.active {
+  display: flex;
+  animation: fadeIn var(--transition-speed) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* 헤더 & 푸터 공통 */
+.app-header {
+  height: 64px;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: rgba(18, 18, 20, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 5;
+}
+
+.app-header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.app-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  color: var(--accent);
+  font-size: 28px;
+}
+
+.view-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-color);
+  background-color: rgba(18, 18, 20, 0.9);
+}
+
+/* 버튼 스타일링 */
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.icon-btn:active {
+  transform: scale(0.92);
+  background-color: var(--bg-tertiary);
+}
+
+.primary-btn {
+  background-color: var(--accent);
+  color: #0c0d0e;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.primary-btn:active {
+  transform: scale(0.97);
+  background-color: var(--accent-hover);
+}
+
+.secondary-btn {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.secondary-btn:active {
+  transform: scale(0.96);
+}
+
+.text-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.text-btn:active {
+  background-color: var(--bg-secondary);
+}
+
+/* 1. 홈 화면 (빈 상태 & 목록) */
+.empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-secondary);
+}
+
+.state-icon {
+  font-size: 64px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.empty-state p {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.empty-state .subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.routine-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 20px;
+}
+
+.routine-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.routine-card:active {
+  transform: scale(0.99);
+}
+
+.card-thumbnail {
+  width: 100px;
+  min-width: 100px;
+  height: 100px;
+  object-fit: cover;
+  background-color: var(--bg-tertiary);
+}
+
+.card-info {
+  flex: 1;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0; /* flex 자식의 ellipsis 버그 방지 */
+}
+
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-duration {
+  font-size: 14px;
+  color: var(--accent);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.card-action-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.card-action-btn:active {
+  background-color: var(--bg-tertiary);
+}
+
+.card-action-btn.delete:active {
+  color: var(--danger);
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* 2. 등록/편집 폼 */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.input-with-action {
+  display: flex;
+  gap: 8px;
+}
+
+.input-with-action input {
+  flex: 1;
+}
+
+input[type="url"], input[type="text"] {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 14px;
+  color: var(--text-primary);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="url"]:focus, input[type="text"]:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+.video-preview-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.video-preview-card img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.preview-info {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.preview-title {
+  font-weight: 500;
+  color: var(--text-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.duration-slider-container {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.duration-slider-container input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.duration-display {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.duration-display #duration-val {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.duration-minmax {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.submit-btn {
+  margin-top: 10px;
+}
+
+/* 3. 플레이어 화면 */
+.player-progress-header {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: calc(100% - 80px);
+}
+
+.player-progress-header #current-index-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.title-ellipsis {
+  width: 100%;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-content {
+  padding: 0;
+  overflow: hidden;
+}
+
+.video-area {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 ratio */
+  background-color: #000;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.video-area #youtube-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.timer-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 24px;
+}
+
+/* 원형 타이머 */
+.timer-ring-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.timer-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); /* 12시 방향부터 채워지도록 회전 */
+}
+
+.timer-track {
+  fill: none;
+  stroke: var(--bg-tertiary);
+  stroke-width: 10px;
+}
+
+.timer-fill {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 10px;
+  stroke-linecap: round;
+  stroke-dasharray: 534; /* 2 * PI * r (r=85 => 534.07) */
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.1s linear, stroke var(--transition-speed);
+}
+
+/* 타이머가 10초 미만으로 남으면 빨간색으로 경고 효과 */
+.timer-fill.warning {
+  stroke: var(--danger);
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.4));
+}
+
+.timer-center-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#timer-time {
+  font-size: 38px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums; /* 숫자 폭 고정으로 깜빡임 제거 */
+  color: var(--text-primary);
+}
+
+.timer-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.circle-btn {
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+.circle-btn:active {
+  transform: scale(0.92);
+}
+
+.circle-btn.primary {
+  width: 64px;
+  height: 64px;
+  background-color: var(--accent);
+  color: #0c0d0e;
+  box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+.circle-btn.primary span {
+  font-size: 36px;
+}
+
+.circle-btn.secondary {
+  width: 48px;
+  height: 48px;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.circle-btn.secondary span {
+  font-size: 24px;
+}
+
+.player-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-color);
+  background-color: rgba(18, 18, 20, 0.9);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.player-footer button {
+  flex: 1;
+}
+
+/* 유틸리티 */
+.hidden {
+  display: none !important;
+}
+
+.visible {
+  display: block !important;
+}
